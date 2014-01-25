@@ -7,9 +7,9 @@ namespace Gini\Auth {
         //验证令牌/密码
         function verify($username, $password);
         //设置令牌
-        function change_username($username, $new_username);
+        function changeUserName($username, $new_username);
         //设置密码
-        function change_password($username, $password);
+        function changePassword($username, $password);
         //添加令牌/密码对
         function add($username, $password);
         //删除令牌/密码对
@@ -23,7 +23,7 @@ namespace Gini {
     class Auth {
     
         //返回当前令牌
-        static function username() {
+        static function userName() {
             static $curr_username;
     
             //auth.username可强制重载进程令牌
@@ -44,7 +44,7 @@ namespace Gini {
             // session_unset();
             Event::trigger('auth.before_login', $username);
             Session::cleanup();
-            Session::regenerate_id();
+            Session::regenerateId();
             $_SESSION['auth.username'] = $username;
             Event::trigger('auth.after_login', $username);
             return $username;
@@ -52,7 +52,7 @@ namespace Gini {
     
         //取消当前用户/指定用户的令牌
         static function logout() {
-            $curr_username = self::username();
+            $curr_username = self::userName();
             Event::trigger('auth.before_logout', $username);
             Session::cleanup(true);
             Event::trigger('auth.after_logout', $username);
@@ -60,7 +60,7 @@ namespace Gini {
         
         //显示当前用户是否已登录
         static function logged_in(){
-            return self::username() != null;
+            return self::userName() != null;
         }
 
         static function backends() {
@@ -79,13 +79,13 @@ namespace Gini {
             return $username;
         }
     
-        static function make_username($name, $backend=null) {
-            list($name, $b) = self::parse_username($name);
+        static function makeUserName($name, $backend=null) {
+            list($name, $b) = self::parseUserName($name);
             $backend = $backend ?: ($b ?: _CONF('auth.default_backend'));
             return $name . '|' . $backend;
         }
     
-        static function parse_username($username) {
+        static function parseUserName($username) {
             return explode('|', $username, 2);
         }
     
@@ -96,7 +96,7 @@ namespace Gini {
         function __construct($username) {
             if ($username === null) return;
     
-            list($username, $backend) = self::parse_username($username);
+            list($username, $backend) = self::parseUserName($username);
     
             $backend = $backend ?: _CONF('auth.default_backend');
     
@@ -129,11 +129,11 @@ namespace Gini {
         }
     
         //更改用户令牌
-        function change_username($username_new){
+        function changeUserName($username_new){
             if (!$this->driver) return false;
             if (!$this->username) return false;
             if ($this->options['readonly']) return true;
-            $ret = $this->driver->change_username(
+            $ret = $this->driver->changeUserName(
                         $this->username, $username_new);
             if ($ret) {
                 $this->username = $username_new;
@@ -142,11 +142,11 @@ namespace Gini {
         }
     
         //更改用户密码
-        function change_password($password){
+        function changePassword($password){
             if (!$this->driver) return false;
             if (!$this->username) return false;
             if ($this->options['readonly']) return true;
-            return $this->driver->change_password($this->username, $password);
+            return $this->driver->changePassword($this->username, $password);
         }
         
         //删除令牌/密码对

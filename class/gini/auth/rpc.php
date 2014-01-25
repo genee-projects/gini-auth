@@ -8,7 +8,7 @@ class RPC implements \Gini\Auth\Driver {
     private $_opt;
 
     function __construct(array $opt){
-        $this->_rpc = new \Gini\RPC($opt['rpc.url']);
+        $this->_rpc = new static($opt['rpc.url']);
         $this->_opt = $opt;
     }
     //验证令牌/密码
@@ -29,12 +29,12 @@ class RPC implements \Gini\Auth\Driver {
         return false;
     }
     //设置令牌
-    function change_username($username, $new_username) {
+    function changeUserName($username, $new_username) {
         //安全问题 禁用
         return false;
     }
     //设置密码
-    function change_password($username, $password) {
+    function changePassword($username, $password) {
         //安全问题 禁用
         return false;
     }

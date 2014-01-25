@@ -15,7 +15,7 @@ class Database implements \Gini\Auth\Driver {
         $this->table = $opt['database.table'] ?: '_auth';
 
         $db = \Gini\Database::db($this->db_name);        
-        $db->adjust_table(
+        $db->adjustTable(
             $this->table, 
             array(
                 'fields' => array(
@@ -33,7 +33,7 @@ class Database implements \Gini\Auth\Driver {
     
     private static function encode($password){
         // crypt SHA512
-        $salt = '$6$'.\Gini\Util::random_password(8, 2).'$';
+        $salt = '$6$'.\Gini\Util::randPassword(8, 2).'$';
         return crypt($password, $salt);
     }
     
@@ -49,14 +49,14 @@ class Database implements \Gini\Auth\Driver {
         return false;    
     }
     
-    function change_password($username, $password){
+    function changePassword($username, $password){
         $db = \Gini\Database::db($this->db_name);
         return false !== $db->execute('UPDATE :table SET "password"=:password WHERE "username"=:username', 
                                 [':table'=>$this->table], 
                                 [':password'=>self::encode($password), ':username'=>$username]);
     }
     
-    function change_username($username, $username_new){
+    function changeUserName($username, $username_new){
         $db = \Gini\Database::db($this->db_name);
         return false !== $db->query('UPDATE :table SET "username"=:new_username WHERE "username"=:old_username', 
                             [':table'=>$this->table], 
