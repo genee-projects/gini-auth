@@ -26,14 +26,13 @@ namespace Gini {
         static function userName() {
             static $curr_username;
     
-            //auth.username可强制重载进程令牌
-            if(_CONF('auth.username')){
-                return _CONF('auth.username');
-            }
-
             if ($curr_username === null) { 
-                Event::trigger('auth.username', $_SESSION['auth.username']);
-                $curr_username = $_SESSION['auth.username'];
+                //auth.username可强制重载进程令牌
+                $curr_username = \Gini\Config::get('auth.username');
+                if (!$curr_username) {
+                    Event::trigger('auth.username', $_SESSION['auth.username']);
+                    $curr_username = $_SESSION['auth.username'];
+                }
             }
     
             return $curr_username;
@@ -64,7 +63,7 @@ namespace Gini {
         }
 
         static function backends() {
-            return (array) _CONF('auth.backends');
+            return (array) \Gini\Config::get('auth.backends');
         }
         
         static function normalize($username = null, $default_backend = null) {
@@ -73,7 +72,7 @@ namespace Gini {
             if (!$username) return '';
             if (!preg_match('/\|[\w.-]+/', $username)) {
                 $default_backend 
-                    = $default_backend ?: _CONF('auth.default_backend');
+                    = $default_backend ?: \Gini\Config::get('auth.default_backend');
                 $username .= '|'.$default_backend;
             }
             return $username;
@@ -81,7 +80,7 @@ namespace Gini {
     
         static function makeUserName($name, $backend=null) {
             list($name, $b) = self::parseUserName($name);
-            $backend = $backend ?: ($b ?: _CONF('auth.default_backend'));
+            $backend = $backend ?: ($b ?: \Gini\Config::get('auth.default_backend'));
             return $name . '|' . $backend;
         }
     
@@ -98,9 +97,9 @@ namespace Gini {
     
             list($username, $backend) = self::parseUserName($username);
     
-            $backend = $backend ?: _CONF('auth.default_backend');
+            $backend = $backend ?: \Gini\Config::get('auth.default_backend');
     
-            $opts = (array) _CONF('auth.backends');
+            $opts = (array) \Gini\Config::get('auth.backends');
             $opt = $opts[$backend];
             
             if (!$opt['driver']) return;    //driver不存在, 表示没有验证驱动
