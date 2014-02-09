@@ -51,14 +51,14 @@ namespace Gini {
     
         //取消当前用户/指定用户的令牌
         static function logout() {
-            $curr_username = self::userName();
+            $username = self::userName();
             Event::trigger('auth.before_logout', $username);
             Session::cleanup(true);
             Event::trigger('auth.after_logout', $username);
         }
         
         //显示当前用户是否已登录
-        static function logged_in(){
+        static function isLoggedIn(){
             return self::userName() != null;
         }
 
