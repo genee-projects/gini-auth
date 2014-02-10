@@ -108,8 +108,8 @@ namespace Gini {
     
             $this->options = $opt;
             $this->username = $username;
-            $class = '\\Gini\\Auth\\'.$opt['driver'];
-            $this->driver = new $class($opt);
+            $class = '\Gini\Auth\\'.$opt['driver'];
+            $this->driver = \Gini\IoC::construct($class, $opt);
         }
     
         function create($password) {
