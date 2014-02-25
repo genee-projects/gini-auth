@@ -1,5 +1,5 @@
 {
-    "shortname": "auth",
+    "id": "auth",
     "name": "Auth",
     "description": "Auth Module",
     "version": "0.1.0",
