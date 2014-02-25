@@ -8,7 +8,7 @@ class RPC implements \Gini\Auth\Driver {
     private $_opt;
 
     function __construct(array $opt){
-        $this->_rpc = \Gini\IoC::construct('\Gini\Auth\RPC', $opt['rpc.url']);
+        $this->_rpc = \Gini\IoC::construct('\Gini\RPC', $opt['rpc.url']);
         $this->_opt = $opt;
     }
     //验证令牌/密码
