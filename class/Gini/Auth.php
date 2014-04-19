@@ -26,15 +26,10 @@ namespace Gini {
         //返回当前令牌
         static function userName()
         {
-            static $curr_username;
-
-            if ($curr_username === null) {
-                //auth.username可强制重载进程令牌
-                $curr_username = \Gini\Config::get('auth.username');
-                if (!$curr_username) {
-                    Event::trigger('auth.username', $_SESSION['auth.username']);
-                    $curr_username = $_SESSION['auth.username'];
-                }
+            //auth.username可强制重载进程令牌
+            $curr_username = \Gini\Config::get('auth.username');
+            if (!$curr_username) {
+               $curr_username = $_SESSION['auth.username'];
             }
 
             return $curr_username;
