@@ -18,7 +18,7 @@ class LDAP implements \Gini\Auth\Driver
     public function __construct(array $opt)
     {
         $this->options = $opt;
-        $this->ldap = \Gini\Auth\LDAP\Handler::factory($opt['options']);
+        $this->ldap = \Gini\LDAP::factory($opt['options']);
     }
 
     public function verify($token, $password)
