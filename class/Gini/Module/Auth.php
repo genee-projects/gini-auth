@@ -8,7 +8,7 @@ class Auth
     {
         // 对不同的driver进行检测
         $backends = \Gini\Config::get('auth.backends');
-        foreach ($backends as $options) {
+        if (!empty($backends)) foreach ($backends as $options) {
             switch (strtolower($options['driver'])) {
             case 'ldap':
                 $host = $options['ldap.options']['host'];
