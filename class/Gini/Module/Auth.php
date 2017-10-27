@@ -2,7 +2,7 @@
 
 namespace Gini\Module;
 
-class Auth
+class Auth extends Prototype
 {
     public static function diagnose()
     {
