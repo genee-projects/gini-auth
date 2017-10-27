@@ -2,9 +2,10 @@
     "id": "auth",
     "name": "Auth",
     "description": "Auth Module",
-    "version": "0.1.4",
+    "version": "0.2.0",
     "dependencies": {
         "ldap": "*",
         "gini": ">=1.11"
-    }
+    },
+    "moduleClass": "\\Gini\\Module\\auth"
 }
