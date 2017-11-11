@@ -5,7 +5,7 @@
     "version": "0.2.0",
     "dependencies": {
         "ldap": "*",
-        "gini": ">=1.11"
+        "gini": ">=1.11.0"
     },
     "moduleClass": "\\Gini\\Module\\auth"
 }

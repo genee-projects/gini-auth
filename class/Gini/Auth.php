@@ -38,13 +38,13 @@ namespace Gini {
         //设置当前用户的令牌
         static function login($username)
         {
+            $username = self::normalize($username);
             // session_unset();
             Event::trigger('auth.before_login', $username);
             Session::cleanup();
             Session::regenerateId();
             $_SESSION['auth.username'] = $username;
             Event::trigger('auth.after_login', $username);
-
             return $username;
         }
 
