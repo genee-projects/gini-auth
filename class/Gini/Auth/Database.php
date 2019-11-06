@@ -20,7 +20,7 @@ class Database implements \Gini\Auth\Driver
             [
                 'fields' => [
                     'username' => ['type' => 'varchar(80)', 'null' => false, 'default' => ''],
-                    'password' => ['type' => 'varchar(100)', 'null' => false, 'default' => ''],
+                    'password' => ['type' => 'varchar(128)', 'null' => false, 'default' => ''],
                 ],
                 'indexes' => [
                     'PRIMARY' => ['type'=>'primary', 'fields'=> ['username']],
