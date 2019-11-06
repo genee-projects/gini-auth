@@ -2,7 +2,7 @@
     "id": "auth",
     "name": "Auth",
     "description": "Auth Module",
-    "version": "0.2.1",
+    "version": "0.2.2",
     "dependencies": {
         "ldap": "*",
         "gini": ">=1.11.0"
